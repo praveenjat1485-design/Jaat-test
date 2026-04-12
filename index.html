@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>हिन्दी टेस्ट</title>
+    <style>
+        body { font-family: sans-serif; background: #2c3e50; color: white; text-align: center; padding: 20px; }
+        .card { background: white; color: #333; padding: 20px; border-radius: 15px; max-width: 500px; margin: auto; }
+        .btn { background: #27ae60; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; margin: 10px; }
+        .opt { display: block; width: 100%; padding: 10px; margin: 5px 0; border: 1px solid #ddd; border-radius: 5px; cursor: pointer; text-align: left; }
+        .opt:hover { background: #f0f0f0; }
+    </style>
+</head>
+<body>
+
+    <h1>हिन्दी शब्द-युग्म परीक्षा</h1>
+    <div class="card" id="quiz">
+        <h3 id="q-text">प्रश्न लोड हो रहा है...</h3>
+        <div id="options"></div>
+        <button class="btn" onclick="next()">Save & Next</button>
+    </div>
+
+<script>
+    const data = [
+        { q: "मणि-मणी का सही अर्थ है?", o: ["रत्न-सर्प", "नशा-शराब", "आधार-कीमत", "रस-लय"], a: "रत्न-सर्प" },
+        { q: "सुरभि-सुरभी का सही अर्थ है?", o: ["गंध-गाय", "रात्रि-गाय", "दूध-बकरी", "मुकुट-मूँगा"], a: "गंध-गाय" },
+        { q: "रत-रति का सही अर्थ है?", o: ["प्रेम-लीन", "लय-राग", "राग-लय", "लीन-प्रेम"], a: "लीन-प्रेम" },
+        { q: "गत-गति का सही अर्थ है?", o: ["बीता हुआ-चाल", "बुरा-बीता हुआ", "मापक-नक्षत्र", "चक्र-चाल"], a: "बीता हुआ-चाल" },
+        { q: "अथ का विलोम है?", o: ["इति", "अंत", "पूर्ण", "शुरुआत"], a: "इति" }
+    ];
+
+    let idx = 0;
+    let score = 0;
+
+    function load() {
+        if(idx >= data.length) {
+            document.getElementById("quiz").innerHTML = "<h2>टेस्ट पूरा हुआ! स्कोर: " + score + "</h2>";
+            return;
+        }
+        const q = data[idx];
+        document.getElementById("q-text").innerText = (idx + 1) + ". " + q.q;
+        const optBox = document.getElementById("options");
+        optBox.innerHTML = "";
+        q.o.forEach(o => {
+            const b = document.createElement("button");
+            b.className = "opt";
+            b.innerText = o;
+            b.onclick = () => {
+                if(o === q.a) score++;
+                alert("Option Selected: " + o);
+            };
+            optBox.appendChild(b);
+        });
+    }
+
+    function next() {
+        idx++;
+        load();
+    }
+
+    // प्रोग्राम शुरू करें
+    load();
+</script>
+</body>
+</html>
